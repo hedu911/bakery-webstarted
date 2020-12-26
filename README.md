@@ -1,7 +1,7 @@
 Webstarted Bakery
 ================
 
-This is the colaborator repository of the coding challenge
+This is the main repository of the coding challenge
 
 Application in production
 ---------------------
