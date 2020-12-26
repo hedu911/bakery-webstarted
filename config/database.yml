@@ -23,10 +23,7 @@ default: &default
 
 development:
   <<: *default
-  host: "ec2-54-159-107-189.compute-1.amazonaws.com"
-  database: "da1e3fe8c8j5ql"
-  username: "xguvutaacpsidx"
-  password: "a34f3426c4ad5741e8915144ff97798c0d62fba745093823412e10aef2b74df8"
+  database: flowspace-bakery_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -60,10 +57,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  host: "ec2-52-206-80-169.compute-1.amazonaws.com"
-  database: "dcp4k0vc7arhhp"
-  username: "jiljwyrcqmwcgx"
-  password: "8ee67b090a8c02da87a9f8eb4aa80399e31d8aa5734af8fc9a7d2e39a868719c"
+  database: flowspace-bakery_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
