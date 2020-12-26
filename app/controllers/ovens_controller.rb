@@ -7,6 +7,15 @@ class OvensController < ApplicationController
 
   def show
     @oven = current_user.ovens.find_by!(id: params[:id])
+    respond_to do |format|
+      format.html
+      format.json { render :json => {isOvenBusy: (!@oven.cookie.nil? && !@oven.cookie.ready?)}.to_json }
+    end
+  end
+
+  def detail
+    @oven = current_user.ovens.find_by!(id: params[:id])
+    render layout:false
   end
 
   def empty

@@ -12,7 +12,7 @@ feature 'Cooking cookies' do
     fill_in 'Fillings', with: 'Chocolate Chip'
     click_button 'Mix and bake'
 
-    expect(current_path).to eq(oven_path(oven))
+    visit detail_oven_path(oven)
     expect(page).to have_content 'Chocolate Chip'
     expect(page).to have_content 'Your Cookie is Ready'
 
@@ -48,13 +48,14 @@ feature 'Cooking cookies' do
     oven = user.ovens.first
 
     oven = FactoryGirl.create(:oven, user: user)
-    visit oven_path(oven)
 
     3.times do
+      visit oven_path(oven)
       click_link_or_button 'Prepare Cookie'
       fill_in 'Fillings', with: 'Chocolate Chip'
       click_button 'Mix and bake'
 
+      visit detail_oven_path(oven)
       click_button 'Retrieve Cookie'
     end
 

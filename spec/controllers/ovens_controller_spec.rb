@@ -69,6 +69,44 @@ describe OvensController do
     end
   end
 
+  describe 'GET detail' do
+    let(:oven) { FactoryGirl.create(:oven, user: user) }
+    let(:the_request) { get :detail, params: { id: oven.id } }
+
+    context "when not authenticated" do
+      before { sign_in nil }
+
+      it "blocks access" do
+        the_request
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context "when authenticated" do
+      before { sign_in user }
+
+      it "allows access" do
+        the_request
+        expect(response).to_not be_a_redirect
+      end
+
+      it "assigns the @oven" do
+        the_request
+        expect(assigns(:oven)).to eq(oven)
+      end
+
+      context "when requesting someone else's oven" do
+        let(:oven) { FactoryGirl.create(:oven) }
+
+        it "blocks access" do
+          expect {
+            the_request
+          }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
+    end
+  end
+
   describe 'POST empty' do
     let(:oven) { FactoryGirl.create(:oven, user: user) }
     let(:the_request) { post :empty, params: { id: oven.id } }

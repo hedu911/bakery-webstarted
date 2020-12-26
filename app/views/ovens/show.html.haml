@@ -1,15 +1,37 @@
 %h3= @oven.name
 
-.cookie-info
-  Cookie in oven:
-  - if @oven.cookie
-    1 cookie with #{@oven.cookie.fillings || "no fillings"}
-    - if @oven.cookie.ready?
-      (Your Cookie is Ready)
-      = button_to "Retrieve Cookie", empty_oven_path, class: 'button tiny'
-  - else
-    None
+.new-container
+  .cookie-info
 
-%br
+  %br
 
-= link_to "Prepare Cookie", new_oven_cookies_path(@oven), class: 'button'
+  = link_to "Prepare Cookie", new_oven_cookies_path(@oven), class: 'button'
+
+:javascript
+  const intervalInSeconds = 10;
+  let isBusy = null;
+  const container = document.querySelector('.cookie-info');
+  const fetchData = () => {
+      fetch("/ovens/#{@oven.id}.json").then((response) => {
+          return response.json();
+      }).then(parseData).catch(() => {
+          console.log("There was an error");
+      });
+  }
+  const parseData = (data) => {
+      if (isBusy != null && isBusy != data.isOvenBusy)
+          stateChanged();
+      isBusy = data.isOvenBusy;
+  }
+  const stateChanged = () => {
+      container.innerText = '';
+      fetch("/ovens/#{@oven.id}/detail").then((response) => {
+          return response.text();
+      }).then((text) => {
+          container.innerHTML = text;
+      }).catch(() => {
+          console.log("There was an error");
+      });
+  }
+  const id = setInterval(fetchData, intervalInSeconds * 1000)
+  stateChanged();
