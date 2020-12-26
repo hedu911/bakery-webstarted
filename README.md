@@ -1,22 +1,20 @@
-Flowspace Bakery
+Webstarted Bakery
 ================
 
-Flowspace Bakery is an artisanal digital bakery, crafting the finest digital cookies in New York City.
+This is the main repository of the coding challenge
 
-We don't mass produce our cookies in faceless factories. Instead, We bake cookies to order, one at a time.
-
-Reference Application
+Application in production
 ---------------------
-A reference application can be found at [http://flowspace-bakery.herokuapp.com](http://flowspace-bakery.herokuapp.com)
+This application is hosted in heroku and have all the features merged in the same project  [https://bakery-hedu911.herokuapp.com](https://bakery-hedu911.herokuapp.com)
 
 HTTP Auth access: bake / somecookies
 
-Test Suite
+Tests
 ----------
-Like most bakeries, Flowspace Bakery has a test suite. The full suite can be run with:
+To run the tests just use the following command:
 
 ``
-$ rspec spec
+$ rspec
 ``
 
 Requirements
@@ -26,7 +24,5 @@ This application requires:
 
 - Ruby 2.6.2
 - PostgreSQL server running on localhost
+- Redis server running on localhost
 
-Similar Projects
-----------------
-[Momofuku milk bar](http://milkbarstore.com/)
