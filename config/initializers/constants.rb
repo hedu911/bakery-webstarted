@@ -1,0 +1,1 @@
+COOKING_TIME = 2

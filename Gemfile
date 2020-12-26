@@ -48,6 +48,14 @@ gem 'pg', '~> 0.18'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 
+gem 'resque-lock-timeout'
+gem 'resque-heroku-signals'
+gem 'redis-namespace'
+gem 'redis-rails'
+gem 'redis-rack-cache'
+gem 'resque-scheduler'
+gem 'resque'
+
 group :development do
   gem 'selenium-webdriver'
   gem 'listen', '>= 3.0.5', '< 3.2'
