@@ -6,23 +6,51 @@ feature 'Cooking cookies' do
     visit oven_path(oven)
 
     expect(page).to_not have_content 'Chocolate Chip'
-    expect(page).to_not have_content 'Your Cookie is Ready'
+    expect(page).to_not have_content 'Your Cookies are Ready'
 
-    click_link_or_button 'Prepare Cookie'
+    click_link_or_button 'Prepare Cookies'
     fill_in 'Fillings', with: 'Chocolate Chip'
     click_button 'Mix and bake'
 
     expect(current_path).to eq(oven_path(oven))
     expect(page).to have_content 'Chocolate Chip'
-    expect(page).to have_content 'Your Cookie is Ready'
+    expect(page).to have_content 'Your Cookies are Ready'
 
-    click_button 'Retrieve Cookie'
+    click_button 'Retrieve Cookies'
     expect(page).to_not have_content 'Chocolate Chip'
-    expect(page).to_not have_content 'Your Cookie is Ready'
+    expect(page).to_not have_content 'Your Cookies are Ready'
 
     visit root_path
     within '.store-inventory' do
       expect(page).to have_content '1 Cookie'
+    end
+  end
+
+  scenario 'Cooking multiple cookies' do
+    user = create_and_signin
+    oven = user.ovens.first
+
+    visit oven_path(oven)
+
+    expect(page).to_not have_content 'Chocolate Chip'
+    expect(page).to_not have_content 'Your Cookies are Ready'
+
+    click_link_or_button 'Prepare Cookies'
+    fill_in 'Fillings', with: 'Chocolate Chip'
+    fill_in 'count', with: '5'
+    click_button 'Mix and bake'
+
+    expect(current_path).to eq(oven_path(oven))
+    expect(page).to have_content 'Chocolate Chip'
+    expect(page).to have_content 'Your Cookies are Ready'
+
+    click_button 'Retrieve Cookies'
+    expect(page).to_not have_content 'Chocolate Chip'
+    expect(page).to_not have_content 'Your Cookies are Ready'
+
+    visit root_path
+    within '.store-inventory' do
+      expect(page).to have_content '5 Cookies'
     end
   end
 
@@ -33,12 +61,12 @@ feature 'Cooking cookies' do
     oven = FactoryGirl.create(:oven, user: user)
     visit oven_path(oven)
 
-    click_link_or_button 'Prepare Cookie'
+    click_link_or_button 'Prepare Cookies'
     fill_in 'Fillings', with: 'Chocolate Chip'
     click_button 'Mix and bake'
 
-    click_link_or_button  'Prepare Cookie'
-    expect(page).to have_content 'A cookie is already in the oven!'
+    click_link_or_button  'Prepare Cookies'
+    expect(page).to have_content 'There are already cookies in the oven!'
     expect(current_path).to eq(oven_path(oven))
     expect(page).to_not have_button 'Mix and bake'
   end
